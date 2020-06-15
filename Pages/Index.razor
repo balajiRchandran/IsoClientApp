@@ -1,0 +1,11 @@
+﻿@page "/"
+@inject AppDataService.Services.AppData ad;
+@inject NavigationManager MyNavigationManager
+
+@code
+{
+    protected override async Task OnInitializedAsync()
+    {
+        MyNavigationManager.NavigateTo("/User/" + ad.username);
+    }
+}

@@ -1,0 +1,117 @@
+﻿@page "/User/{username}"
+@inject HttpClient Http;
+@using Newtonsoft.Json;
+@inject AppDataService.Services.AppData ad;
+
+<style>
+    .logo {
+        color: #fff;
+        text-transform: uppercase;
+        padding: 6px 10px;
+        display: block;
+        font-size: 16px;
+        font-weight: 100;
+    }
+
+    .my-mat-icon, .my-mat-icon:hover {
+        background: none;
+        box-shadow: none;
+        color: #2E4D76;
+    }
+
+    .mycard-content {
+        border-radius: 6px 6px 0px 0px;
+        padding: 30px 20px 30px 30px;
+        font-size: 20px;
+    }
+
+    .mycard-content, .mycard-icon {
+        color: #FFF;
+        background-image: linear-gradient(to right,#2E4D76,#5E7DA6);
+    }
+
+    .mycard-icon {
+        border-radius: 0px 6px 0px 0px;
+        padding: 15px 15px 10px 5px;
+        font-size: 50px;
+    }
+
+    .mycard-footer {
+        padding: 0px 0px 0px 0px;
+        border-radius: 0px 0px 6px 6px;
+        border: 1px solid #2E4D76;
+        text-align: center;
+        background-color: #FFF;
+    }
+</style>
+<MatAppBarContainer>
+    <MatAppBar Style="background-color: #4285F4;">
+        <MatAppBarRow>
+            <MatAppBarSection>
+                <MatIconButton Icon="menu"></MatIconButton>
+                <MatAppBarTitle>Welcome, @ad.username</MatAppBarTitle>
+            </MatAppBarSection>
+            <MatSlideToggle Style="top: 30%;" TValue="bool"></MatSlideToggle>
+            <MatIconButton Icon="search"></MatIconButton>
+            <MatIconButton Style="z-index:1;" Icon="mail"></MatIconButton>
+            <i class="tmn-counts"><span class="p-1" style="background-color:red; z-index:2; font-size:x-small; display:inline; margin-left:-18px;">5</span></i>
+            <MatIconButton Icon="notifications"></MatIconButton>
+            <i class="tmn-counts"><span class="p-1" style="background-color:red; z-index:2; font-size:x-small; display:inline; margin-left:-18px;">9</span></i>
+            <MatIconButton Icon="list"></MatIconButton>
+            <i class="tmn-counts"><span class="p-1" style="background-color:red; z-index:2; font-size:x-small; display:inline; margin-left:-18px;">2</span></i>
+            <MatIconButton Icon="more_vert"></MatIconButton>
+            <MatIconButton Icon="format_align_right"></MatIconButton>
+
+        </MatAppBarRow>
+    </MatAppBar>
+
+    <MatAppBarContent>
+        @if (blob != null)
+        {
+            <div class="container-fluid" style="width:100vw;">
+                <div class="row mb-3">
+                    @foreach (var single in blob)
+                    {
+                        <div class="col-6 col-sm-6 col-md-4 col-lg-2 mt-4">
+                            <MatCard Class="mycard-content">
+                                <div class="container-fluid">
+                                    <div class="row" style="display: flex; justify-content: center; align-items: center; text-align:center;">
+                                        <span>@(single.filename)</span>
+                                    </div>
+                                </div>
+                            </MatCard>
+
+                            <NavLink href="@("Report/" + single.filename)" style="text-decoration: none;">
+                                <div class="mycard-footer">
+                                    <MatFAB Class="my-mat-icon" Icon="@MatIconNames.Insert_drive_file" Label="View Report"></MatFAB>
+                                </div>
+                            </NavLink>
+                        </div>
+                    }
+                </div>
+            </div>
+        }
+    </MatAppBarContent>
+</MatAppBarContainer>
+
+
+
+@code
+{
+    [Parameter]
+    public string username { get; set; }
+    public class Blob
+    {
+        public string blobfile { get; set; }
+        public string blobfilename { get; set; }
+        public string filename => blobfilename.Substring(blobfilename.LastIndexOf("/") + 1);
+    }
+    string res;
+    Blob[] blob;
+    protected override async Task OnInitializedAsync()
+    {
+        res = await Http.GetStringAsync("https://raw.githubusercontent.com/balajiRchandran/temp/master/bello");
+        //res = await Http.GetStringAsync("https://isoorgsprintrptfunctionapp.azurewebsites.net/api/Reports?code=r4Of4Hz3cE8vBJ270ctTUrWpMdQcfQp/FZZ4EtrMhiXoEqk4mJnSjA==&name=tsaru72test");
+        blob = JsonConvert.DeserializeObject<Blob[]>(res);
+    }
+}

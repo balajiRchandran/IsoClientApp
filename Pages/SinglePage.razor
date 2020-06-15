@@ -1,0 +1,15 @@
+﻿@page "/Report/{text}"
+@if (Text != null)
+{
+    <iframe frameBorder="0" style="width:100vw;height:100vh;" class="embed-responsive-item" src="@("https://isodeveastus2blob01.blob.core.windows.net/tsaru72test/"+Text)"></iframe>
+}
+
+@code {
+    [Parameter]
+    public string Text { get; set; }
+
+    protected override void OnInitialized()
+    {
+        Text = Text ?? "Error";
+    }
+}

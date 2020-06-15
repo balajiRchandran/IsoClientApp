@@ -1,0 +1,57 @@
+@inject HttpClient Http;
+@using System.IdentityModel.Tokens.Jwt;
+@inject NavigationManager MyNavigationManager
+@inject AppDataService.Services.AppData ad;
+
+
+<Router AppAssembly="@typeof(Program).Assembly">
+    <Found Context="routeData">
+        <RouteView RouteData="@routeData" DefaultLayout="@typeof(MainLayout)" />
+    </Found>
+    <NotFound>
+        <LayoutView Layout="@typeof(MainLayout)">
+            <p>Sorry, there's nothing at this address.</p>
+        </LayoutView>
+    </NotFound>
+</Router>
+
+@code
+{
+
+    void GetUserNameIndex()
+    {
+
+        Console.WriteLine(MyNavigationManager.Uri);
+        var uri = MyNavigationManager.Uri;
+        var uris = uri.ToString().Split("#")[1].ToString();
+
+        if (String.IsNullOrEmpty(uris))
+        {
+            ad.username = "";
+
+        }
+        else
+        {
+            var jwt = uris.Split("=")[1].ToString();
+
+            var handler = new JwtSecurityTokenHandler();
+            var jsonToken = handler.ReadJwtToken(jwt);
+
+            var tokenS = handler.ReadToken(jwt) as JwtSecurityToken;
+
+            var name = tokenS.Claims.First(claim => claim.Type == "name").Value;
+            System.Diagnostics.Debug.WriteLine(name);
+            ad.username = name;
+            Console.WriteLine("Inside GetUserName()of App.razor " + name);
+        }
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+
+        Console.WriteLine("Went inside OnInitializedAsync ");
+
+        GetUserNameIndex();
+    }
+
+}
