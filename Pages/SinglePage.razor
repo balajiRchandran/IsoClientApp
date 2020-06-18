@@ -1,7 +1,8 @@
 ﻿@page "/Report/{text}"
+@inject AppDataService.Services.AppData ad;
 @if (Text != null)
 {
-    <iframe frameBorder="0" style="width:100vw;height:100vh;" class="embed-responsive-item" src="@("https://isodeveastus2blob01.blob.core.windows.net/tsaru72test/"+Text)"></iframe>
+    <iframe frameBorder="0" style="width:100vw;height:100vh;" class="embed-responsive-item" src="@("https://isodeveastus2blob01.blob.core.windows.net/"+@ad.username+"/"+Text)"></iframe>
 }
 
 @code {

@@ -1,49 +1,5 @@
 ﻿@inherits LayoutComponentBase
-<style>
-    #footer {
-        position: fixed;
-        bottom: 0;
-        text-align: center;
-        width: 100%;
-        height: 110px;
-        color: #a2a2a2;
-        padding-top: 35px;
-        padding-bottom: 15px;
-    }
-        #footer .f-menu {
-            display: block;
-            width: 100%;
-            padding-left: 0;
-            list-style: none;
-            margin-left: -5px;
-            margin-top: 8px;
-        }
-            ul.f-menu li {
-                display: inline-block;
-                padding-left: 5px;
-                padding-right: 5px;
-            }
-    #footer .f-menu  li  a {
-        text-decoration:none;
-        color: #a2a2a2;
-    }
-
-        #footer .f-menu  li  a:hover {
-            text-decoration:none;
-            color: #777;
-        }
-</style>
 <div>
     @Body
 </div>
-<footer id="footer">
-    Copyright &copy; 2020 Isocrates.app
 
-    <ul class="f-menu">
-        <li><a href="">Home</a></li>
-        <li><a href="">Dashboard</a></li>
-        <li><a href="">Reports</a></li>
-        <li><a href="">Support</a></li>
-        <li><a href="">Contact</a></li>
-    </ul>
-</footer>

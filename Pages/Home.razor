@@ -1,9 +1,45 @@
 ﻿@page "/User/{username}"
 @inject HttpClient Http;
 @using Newtonsoft.Json;
+@inject NavigationManager MyNavigationManager
 @inject AppDataService.Services.AppData ad;
-
 <style>
+    #footer {
+        position: fixed;
+        bottom: 0;
+        text-align: center;
+        width: 100%;
+        height: 110px;
+        color: #a2a2a2;
+        padding-top: 35px;
+        padding-bottom: 15px;
+    }
+
+        #footer .f-menu {
+            display: block;
+            width: 100%;
+            padding-left: 0;
+            list-style: none;
+            margin-left: -5px;
+            margin-top: 8px;
+        }
+
+    ul.f-menu li {
+        display: inline-block;
+        padding-left: 5px;
+        padding-right: 5px;
+    }
+
+    #footer .f-menu li a {
+        text-decoration: none;
+        color: #a2a2a2;
+    }
+
+        #footer .f-menu li a:hover {
+            text-decoration: none;
+            color: #777;
+        }
+
     .logo {
         color: #fff;
         text-transform: uppercase;
@@ -51,11 +87,21 @@
                 <MatIconButton Icon="menu"></MatIconButton>
                 <MatAppBarTitle>Welcome, @ad.username</MatAppBarTitle>
             </MatAppBarSection>
-
+            <MatIconButton OnClick="@(e => { logoutDialog = true; })"  Icon="exit_to_app"></MatIconButton>
         </MatAppBarRow>
     </MatAppBar>
 
     <MatAppBarContent>
+        <MatDialog @bind-IsOpen="@logoutDialog">
+            <MatDialogTitle>Confirm Logout!</MatDialogTitle>
+            <MatDialogContent>
+                <p>Are you sure you want to Logout?</p>
+            </MatDialogContent>
+            <MatDialogActions>
+                <MatButton OnClick="@(e => { logoutDialog = false; })">Cancel</MatButton>
+                <MatButton OnClick="@(e => { logoutDialog = false; })" Link="https://www.isocrates.app/">Yes</MatButton>
+            </MatDialogActions>
+        </MatDialog>
         @if (blob != null)
         {
             <div class="container-fluid" style="width:100vw;">
@@ -82,6 +128,17 @@
             </div>
         }
     </MatAppBarContent>
+    <footer id="footer">
+        Copyright &copy; 2020 Isocrates.app
+
+        <ul class="f-menu">
+            <li><a href="">Home</a></li>
+            <li><a href="">Dashboard</a></li>
+            <li><a href="">Reports</a></li>
+            <li><a href="">Support</a></li>
+            <li><a href="">Contact</a></li>
+        </ul>
+    </footer>
 </MatAppBarContainer>
 
 
@@ -90,6 +147,7 @@
 {
     [Parameter]
     public string username { get; set; }
+    Boolean logoutDialog = false;
     public class Blob
     {
         public string blobfile { get; set; }
@@ -100,8 +158,8 @@
     Blob[] blob;
     protected override async Task OnInitializedAsync()
     {
-        res = await Http.GetStringAsync("https://raw.githubusercontent.com/balajiRchandran/temp/master/bello");
-        //res = await Http.GetStringAsync("https://isoorgsprintrptfunctionapp.azurewebsites.net/api/Reports?code=r4Of4Hz3cE8vBJ270ctTUrWpMdQcfQp/FZZ4EtrMhiXoEqk4mJnSjA==&name=tsaru72test");
+        //res = await Http.GetStringAsync("https://raw.githubusercontent.com/balajiRchandran/temp/master/bello");
+        res = await Http.GetStringAsync("https://isoorgsprintrptfunctionapp.azurewebsites.net/api/Reports?code=r4Of4Hz3cE8vBJ270ctTUrWpMdQcfQp/FZZ4EtrMhiXoEqk4mJnSjA==&name=" + ad.username);
         blob = JsonConvert.DeserializeObject<Blob[]>(res);
     }
 }
