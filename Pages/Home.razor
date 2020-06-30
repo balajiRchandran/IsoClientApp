@@ -3,6 +3,7 @@
 @using Newtonsoft.Json;
 @inject NavigationManager MyNavigationManager
 @inject AppDataService.Services.AppData ad;
+@inject BaseURLService.Services.BaseURL baseUrl;
 <style>
     #footer {
         position: fixed;
@@ -99,7 +100,7 @@
             </MatDialogContent>
             <MatDialogActions>
                 <MatButton OnClick="@(e => { logoutDialog = false; })">Cancel</MatButton>
-                <MatButton OnClick="@(e => { logoutDialog = false; })" Link="https://www.isocrates.app/">Yes</MatButton>
+                <MatButton OnClick="@(e => { logoutDialog = false; })" Link="@baseUrl.isocratesWebsite">Yes</MatButton>
             </MatDialogActions>
         </MatDialog>
         @if (blob != null)
@@ -158,8 +159,7 @@
     Blob[] blob;
     protected override async Task OnInitializedAsync()
     {
-        //res = await Http.GetStringAsync("https://raw.githubusercontent.com/balajiRchandran/temp/master/bello");
-        res = await Http.GetStringAsync("https://isoorgsprintrptfunctionapp.azurewebsites.net/api/Reports?code=r4Of4Hz3cE8vBJ270ctTUrWpMdQcfQp/FZZ4EtrMhiXoEqk4mJnSjA==&name=" + ad.username);
+        res = await Http.GetStringAsync( baseUrl.allReports + ad.username);
         blob = JsonConvert.DeserializeObject<Blob[]>(res);
     }
 }

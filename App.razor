@@ -40,18 +40,17 @@
             var tokenS = handler.ReadToken(jwt) as JwtSecurityToken;
 
             var name = tokenS.Claims.First(claim => claim.Type == "name").Value;
-            System.Diagnostics.Debug.WriteLine(name);
+            //System.Diagnostics.Debug.WriteLine(name);
             ad.username = name;
-            Console.WriteLine("Inside GetUserName()of App.razor " + name);
+            //Console.WriteLine("Inside GetUserName()of App.razor " + name);
         }
     }
 
     protected override async Task OnInitializedAsync()
     {
 
-        Console.WriteLine("Went inside OnInitializedAsync ");
-
-        GetUserNameIndex();
+        //Console.WriteLine("Went inside OnInitializedAsync ");
+        //GetUserNameIndex();
     }
 
 }

@@ -13,8 +13,7 @@ namespace IsoClientApp
         {
             var builder = WebAssemblyHostBuilder.CreateDefault(args);
             builder.Services.AddSingleton<AppDataService.Services.AppData>();
-
-
+            builder.Services.AddSingleton<BaseURLService.Services.BaseURL>();
             builder.RootComponents.Add<App>("app");
 
             builder.Services.AddTransient(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
