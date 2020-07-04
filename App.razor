@@ -2,7 +2,7 @@
 @using System.IdentityModel.Tokens.Jwt;
 @inject NavigationManager MyNavigationManager
 @inject AppDataService.Services.AppData ad;
-
+@inject BaseURLService.Services.BaseURL baseUrl;
 
 <Router AppAssembly="@typeof(Program).Assembly">
     <Found Context="routeData">
@@ -10,7 +10,31 @@
     </Found>
     <NotFound>
         <LayoutView Layout="@typeof(MainLayout)">
-            <p>Sorry, there's nothing at this address.</p>
+            <div class="container-fluid vw-100" style="margin-top:100px;">
+                <div class="row">
+                    <div class="col-md-12">
+                        <center>
+                            <div>
+                                <img src="icons/IsocratesLogo.jpg" alt="Isocrates" width="80" height="100" />
+                                <h1>
+                                    Oops!
+                                </h1>
+                                <h2>
+                                    404 Not Found
+                                </h2>
+                                <div>
+                                    Sorry, an error has occured, Requested page not found!
+                                    <br />
+                                </div>
+                                <div>
+                                    <MatButton Raised="true" Icon="home" Style="background-color: #4285F4;" Link="@baseUrl.isocratesWebsite">Return to Home</MatButton>
+                                    <MatButton Outlined="true" Icon="email" Style="color: #4285F4;">Contact Helpdesk</MatButton>
+                                </div>
+                            </div>
+                        </center>
+                    </div>
+                </div>
+            </div>
         </LayoutView>
     </NotFound>
 </Router>
@@ -50,7 +74,7 @@
     {
 
         //Console.WriteLine("Went inside OnInitializedAsync ");
-        //GetUserNameIndex();
+        GetUserNameIndex();
     }
 
 }

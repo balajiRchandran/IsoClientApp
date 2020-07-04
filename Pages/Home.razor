@@ -1,4 +1,4 @@
-﻿@page "/User/{username}"
+﻿@page "/Admin/{username}"
 @inject HttpClient Http;
 @using Newtonsoft.Json;
 @inject NavigationManager MyNavigationManager
@@ -109,21 +109,25 @@
                 <div class="row mb-3">
                     @foreach (var single in blob)
                     {
-                        <div class="col-6 col-sm-6 col-md-4 col-lg-2 mt-4">
-                            <MatCard Class="mycard-content">
-                                <div class="container-fluid">
-                                    <div class="row" style="display: flex; justify-content: center; align-items: center; text-align:center;">
-                                        <span>@(single.filename)</span>
+                        @if (!single.filename.Equals("username_role.json"))
+                        {
+                            <div class="col-6 col-sm-6 col-md-4 col-lg-2 mt-4">
+                                <MatCard Class="mycard-content">
+                                    <div class="container-fluid">
+                                        <div class="row" style="display: flex; justify-content: center; align-items: center; text-align:center;">
+                                            <span>@(single.filename)</span>
+                                        </div>
                                     </div>
-                                </div>
-                            </MatCard>
+                                </MatCard>
 
-                            <NavLink href="@("Report/" + single.filename)" style="text-decoration: none;">
-                                <div class="mycard-footer">
-                                    <MatFAB Class="my-mat-icon" Icon="@MatIconNames.Insert_drive_file" Label="View Report"></MatFAB>
-                                </div>
-                            </NavLink>
-                        </div>
+                                <NavLink href="@("Report/" + single.filename)" style="text-decoration: none;">
+                                    <div class="mycard-footer">
+                                        <MatFAB Class="my-mat-icon" Icon="@MatIconNames.Insert_drive_file" Label="View Report"></MatFAB>
+                                    </div>
+                                </NavLink>
+                            </div>
+                        }
+
                     }
                 </div>
             </div>
@@ -160,6 +164,7 @@
     protected override async Task OnInitializedAsync()
     {
         res = await Http.GetStringAsync( baseUrl.allReports + ad.username);
+        //res = await Http.GetStringAsync(baseUrl.myGit);
         blob = JsonConvert.DeserializeObject<Blob[]>(res);
     }
 }
