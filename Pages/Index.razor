@@ -20,18 +20,20 @@
         res = await Http.GetStringAsync(baseUrl.allReports + ad.username);
         //res = await Http.GetStringAsync(baseUrl.myGit);
         blob = JsonConvert.DeserializeObject<Blob[]>(res);
+        int flag = 0;
         foreach(Blob single in blob)
         {
             if (single.blobfile.Equals("username_role.json"))
             {
+                flag = 1;
                 string userRole = await Http.GetStringAsync(single.blobfilename);
                 if (userRole.Contains("Admin"))
                     MyNavigationManager.NavigateTo("/Admin/" + ad.username);
                 else if (userRole.Contains("Student"))
                     MyNavigationManager.NavigateTo("/Student/" + ad.username);
-                else
-                    MyNavigationManager.NavigateTo("/Error/");
             }
         }
+        if(flag == 0)
+            MyNavigationManager.NavigateTo("/Student/"+ad.username);
     }
 }
