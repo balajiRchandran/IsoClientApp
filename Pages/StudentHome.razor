@@ -288,7 +288,7 @@
         blob = JsonConvert.DeserializeObject<Blob[]>(res);
         foreach(Blob temp in blob)
         {
-            if(temp.filename.Equals("Recomended_Videos.json"))
+            if(temp.filename.Equals("Recommended_Videos.json"))
             {
                 string vidRes= await Http.GetStringAsync(temp.blobfilename);
                 vid = JsonConvert.DeserializeObject<Video[]>(vidRes);
