@@ -133,14 +133,11 @@
                 <!-- recommended videos -->
                 <div class="large-12 columns">
                     <div class="owl-carousel owl-carousel2 owl-loaded">
-                        @foreach (var single in blob)
+                        @foreach (var single in vid)
                         {
-                            @if (single.blobfile.Contains("rec"))
-                            {
-                                <div class="item">
-                                    <iframe class="min col-12" src="@single.blobfilename" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                                </div>
-                            }
+                               <div class="item">
+                                    <iframe class="min col-12" src="@single.vidUrl" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                                </div> 
                         }
 
                     </div>
@@ -276,14 +273,28 @@
         public string blobfilename { get; set; }
         public string filename => blobfilename.Substring(blobfilename.LastIndexOf("/") + 1);
     }
+    public class Video
+    {
+        public string vidUrl { get; set; }
+    }
     Blob[] blob;
     string res;
+    Video[] vid;
     protected override async Task OnInitializedAsync()
     {
         res = await Http.GetStringAsync(baseUrl.allReports + ad.username);
         //res = await Http.GetStringAsync(baseUrl.myGit);
         //Console.WriteLine(res);
         blob = JsonConvert.DeserializeObject<Blob[]>(res);
+        foreach(Blob temp in blob)
+        {
+            if(temp.filename.Equals("Recomended_Videos.json"))
+            {
+                string vidRes= await Http.GetStringAsync(temp.blobfilename);
+                vid = JsonConvert.DeserializeObject<Video[]>(vidRes);
+                break;
+            }
+        }
     }
     protected async override Task OnAfterRenderAsync(bool firstRender)
     {
