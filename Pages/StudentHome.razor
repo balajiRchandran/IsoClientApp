@@ -14,6 +14,7 @@
         cursor: pointer;
         top: 120px !important;
     }
+
     .nav-btn1 {
         height: 16px;
         position: absolute;
@@ -37,6 +38,7 @@
         background: url(icons/next.png) no-repeat scroll 0 0;
         right: -33px;
     }
+
     .owl-carousel1 .prev-slide {
         background: url(icons/back.png) no-repeat scroll 0 0;
         left: 25%;
@@ -44,9 +46,10 @@
 
     .owl-carousel1 .next-slide {
         background: url(icons/next.png) no-repeat scroll 0 0;
-        position:absolute;
+        position: absolute;
         right: 25%;
     }
+
     span {
         text-align: center;
     }
@@ -126,130 +129,130 @@
         </MatDialog>
         @if (blob != null)
         {
-    <div class="container-fluid pl-5 pr-5 justify-content-center" style="width:98vw;">
-        <div class="row mb-5">
-            <h4 style="margin-left:auto;margin-right:auto;margin-top:10px;" class="text-info">Recomended Videos</h4>
-            <div class="col-12 min">
-                <!-- recommended videos -->
-                <div class="large-12 columns">
-                    <div class="owl-carousel owl-carousel2 owl-loaded">
-                        @foreach (var single in vid)
-                        {
-                               <div class="item">
-                                    <iframe class="min col-12" src="@single.vidUrl" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                                </div> 
-                        }
+            <div class="container-fluid pl-5 pr-5 justify-content-center" style="width:98vw;">
+                <div class="row mb-5">
+                    <h4 style="margin-left:auto;margin-right:auto;margin-top:10px;" class="text-info">Recomended Videos</h4>
+                    <div class="col-12 min">
+                        <!-- recommended videos -->
+                        <div class="large-12 columns">
+                            <div class="owl-carousel owl-carousel2 owl-loaded">
+                                @foreach (var single in vid)
+                                {
+                                    <div class="item">
+                                        <iframe class="min col-12" src="@single.vidUrl" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                                    </div>
+                                }
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row justify-content-between mb-lg-3">
+                    <div class="col-12 col-lg-6 mb-lg-0 mb-4" style="min-height: 150px;">
+                        <div class="shadow mr-0 mr-lg-1">
+                            <!-- reports -->
+                            <div class="row">
+                                <h4 style="margin-left:auto;margin-right:auto;margin-top:15px;" class="text-info">Reports</h4>
+                            </div>
+                            <div class="large-12 columns ">
+                                <div class="owl-carousel1 owl-carousel owl-loaded justify-content-center" style="min-height: 140px; text-align:center; line-height:50px;">
+                                    @foreach (var single in blob)
+                                    {
+                                        @if (single.filename.Contains("Sprint") || single.filename.Contains("Report"))
+                                        {
+                                            <NavLink href="@("Report/" + single.filename)" style="text-decoration: none; color: black;">
+                                                <div class="item">
+                                                    <MatIcon Icon="@MatIconNames.Insert_drive_file" Style="font-size:50px;"></MatIcon>
+                                                    <br>
+                                                    <h6 class="mt-2">@single.filename</h6>
+                                                </div>
+                                            </NavLink>
+                                        }
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-lg-6" style="min-height: 140px;">
+                        <div class="shadow ml-0 ml-lg-1">
+                            <div class="row">
+                                <h4 style="margin-left:auto;margin-right:auto; margin-top:15px;" class="text-info">Top Performers</h4>
+                            </div>
+                            <!-- top performers -->
+
+                            <div class="row justify-content-around ml-lg-5 mr-lg-5 mt-2 ml-1 mr-1" style="min-height: 140px;">
+                                <div class="align-self-center">
+                                    <img class="img-leader blue-border" src="https://ranjith.live/img/Ranjith_profile.jpg">
+                                    <h6 class="text-center mt-3"><span class="badge badge-info">2<sup>nd</sup></span>&nbsp;Ranjith T</h6>
+                                </div>
+                                <div>
+                                    <img class="img-leader blue-border" src="https://ranjith.live/img/Ranjith_profile.jpg">
+                                    <h6 class="text-center mt-3"><span class="badge badge-info">1<sup>st</sup></span>&nbsp;Ranjith T</h6>
+                                </div>
+                                <div class="align-self-center">
+                                    <img class="img-leader blue-border" src="https://ranjith.live/img/Ranjith_profile.jpg">
+                                    <h6 class="text-center mt-3"><span class="badge badge-info">3<sup>rd</sup></span>&nbsp;Ranjith T</h6>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <br />
+                <div class="row justify-content-between mb-lg-3">
+                    <div class="col-12 col-lg-6 mb-lg-0 mb-4" style="min-height: 150px;">
+                        <div class="shadow mr-0 mr-lg-1">
+                            <!-- assignments -->
+                            <div class="row">
+                                <h4 style="margin-left:auto;margin-right:auto;margin-top:15px;" class="text-info">Assignments</h4>
+                            </div>
+                            <div class="large-12 columns">
+                                <div class="owl-carousel1 owl-carousel owl-loaded justify-content-center" style="min-height: 140px; text-align:center; line-height:50px;">
+                                    @foreach (var single in blob)
+                                    {
+                                        @if (single.filename.Contains("Assn"))
+                                        {
+                                            <NavLink href="@("Assignment/" + single.filename)" style="text-decoration: none; color: black;">
+                                                <div class="item">
+                                                    <MatIcon Icon="@MatIconNames.Insert_drive_file" Style="font-size:50px;"></MatIcon>
+                                                    <br>
+                                                    <h6 class="mt-2">@single.filename</h6>
+                                                </div>
+                                            </NavLink>
+                                        }
+                                    }
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="col-12 col-lg-6" style="min-height: 150px;">
+                        <div class="shadow ml-0 ml-lg-1">
+                            <!-- attendance -->
+                            <div class="row">
+                                <h4 style="margin-left:auto;margin-right:auto;margin-top:15px;" class="text-info">Attendance</h4>
+                            </div>
+                            <div class="large-12 columns">
+                                <div class="owl-carousel1 owl-carousel owl-loaded justify-content-center" style="min-height: 140px; text-align:center; line-height:50px;">
+                                    @foreach (var single in blob)
+                                    {
+                                        @if (single.filename.Contains("Attn"))
+                                        {
+                                            <NavLink href="@("Attendance/" + single.filename)" style="text-decoration: none; color: black;">
+                                                <div class="item">
+                                                    <MatIcon Icon="@MatIconNames.Insert_drive_file" Style="font-size:50px;"></MatIcon>
+                                                    <br>
+                                                    <h6 class="mt-2">@single.filename</h6>
+                                                </div>
+                                            </NavLink>
+                                        }
+                                    }
+                                </div>
+                            </div>
+                        </div>
 
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="row justify-content-between mb-lg-3">
-            <div class="col-12 col-lg-6 mb-lg-0 mb-4" style="min-height: 150px;">
-                <div class="shadow mr-0 mr-lg-1">
-                    <!-- reports -->
-                    <div class="row">
-                        <h4 style="margin-left:auto;margin-right:auto;margin-top:15px;" class="text-info">Reports</h4>
-                    </div>
-                    <div class="large-12 columns ">
-                        <div class="owl-carousel1 owl-carousel owl-loaded justify-content-center" style="min-height: 140px; text-align:center; line-height:50px;">
-                            @foreach (var single in blob)
-                            {
-                                @if (single.filename.Contains("Sprint") || single.filename.Contains("Report"))
-                                {
-                                    <NavLink href="@("Report/" + single.filename)" style="text-decoration: none; color: black;">
-                                        <div class="item">
-                                            <MatIcon Icon="@MatIconNames.Insert_drive_file" Style="font-size:50px;"></MatIcon>
-                                            <br>
-                                            <h6 class="mt-2">@single.filename</h6>
-                                        </div>
-                                    </NavLink>
-                                }
-                            }
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-12 col-lg-6" style="min-height: 140px;">
-                <div class="shadow ml-0 ml-lg-1">
-                    <div class="row">
-                        <h4 style="margin-left:auto;margin-right:auto; margin-top:15px;" class="text-info">Top Performers</h4>
-                    </div>
-                    <!-- top performers -->
-
-                    <div class="row justify-content-around ml-lg-5 mr-lg-5 mt-2 ml-1 mr-1" style="min-height: 140px;">
-                        <div class="align-self-center">
-                            <img class="img-leader blue-border" src="https://ranjith.live/img/Ranjith_profile.jpg">
-                            <h6 class="text-center mt-3"><span class="badge badge-info">2<sup>nd</sup></span>&nbsp;Ranjith T</h6>
-                        </div>
-                        <div>
-                            <img class="img-leader blue-border" src="https://ranjith.live/img/Ranjith_profile.jpg">
-                            <h6 class="text-center mt-3"><span class="badge badge-info">1<sup>st</sup></span>&nbsp;Ranjith T</h6>
-                        </div>
-                        <div class="align-self-center">
-                            <img class="img-leader blue-border" src="https://ranjith.live/img/Ranjith_profile.jpg">
-                            <h6 class="text-center mt-3"><span class="badge badge-info">3<sup>rd</sup></span>&nbsp;Ranjith T</h6>
-                        </div>
-                    </div>
-                </div> 
-            </div>
-        </div>
-        <br/>
-        <div class="row justify-content-between mb-lg-3">
-            <div class="col-12 col-lg-6 mb-lg-0 mb-4" style="min-height: 150px;">
-                <div class="shadow mr-0 mr-lg-1">
-                    <!-- assignments -->
-                    <div class="row">
-                        <h4 style="margin-left:auto;margin-right:auto;margin-top:15px;" class="text-info">Assignments</h4>
-                    </div>
-                    <div class="large-12 columns">
-                        <div class="owl-carousel1 owl-carousel owl-loaded justify-content-center" style="min-height: 140px; text-align:center; line-height:50px;">
-                            @foreach (var single in blob)
-                            {
-                                @if (single.filename.Contains("Assn"))
-                                {
-                                    <NavLink href="@("Assignment/" + single.filename)" style="text-decoration: none; color: black;">
-                                        <div class="item">
-                                            <MatIcon Icon="@MatIconNames.Insert_drive_file" Style="font-size:50px;"></MatIcon>
-                                            <br>
-                                            <h6 class="mt-2">@single.filename</h6>
-                                        </div>
-                                    </NavLink>
-                                }
-                            }
-                        </div>
-                    </div>
-                </div>
-                
-            </div>
-            <div class="col-12 col-lg-6" style="min-height: 150px;">
-                <div class="shadow ml-0 ml-lg-1">
-                    <!-- attendance -->
-                    <div class="row">
-                        <h4 style="margin-left:auto;margin-right:auto;margin-top:15px;" class="text-info">Attendance</h4>
-                    </div>
-                    <div class="large-12 columns">
-                        <div class="owl-carousel1 owl-carousel owl-loaded justify-content-center" style="min-height: 140px; text-align:center; line-height:50px;">
-                            @foreach (var single in blob)
-                            {
-                                @if (single.filename.Contains("Attn"))
-                                {
-                                    <NavLink href="@("Attendance/" + single.filename)" style="text-decoration: none; color: black;">
-                                        <div class="item">
-                                            <MatIcon Icon="@MatIconNames.Insert_drive_file" Style="font-size:50px;"></MatIcon>
-                                            <br>
-                                            <h6 class="mt-2">@single.filename</h6>
-                                        </div>
-                                    </NavLink>
-                                }
-                            }
-                        </div>
-                    </div>
-                </div>
-                
-            </div>
-        </div>
-    </div>
             <footer id="footer">
                 Copyright &copy; 2020 Isocrates.app
                 <ul class="f-menu">
@@ -286,23 +289,19 @@
         //res = await Http.GetStringAsync(baseUrl.myGit);
         //Console.WriteLine(res);
         blob = JsonConvert.DeserializeObject<Blob[]>(res);
-        foreach(Blob temp in blob)
+        foreach (Blob temp in blob)
         {
-            if(temp.filename.Equals("Recommended_Videos.json"))
+            if (temp.filename.Equals("Recommended_Videos.json"))
             {
-                string vidRes= await Http.GetStringAsync(temp.blobfilename);
+                string vidRes = await Http.GetStringAsync(temp.blobfilename);
                 vid = JsonConvert.DeserializeObject<Video[]>(vidRes);
                 break;
             }
         }
     }
-    protected async override Task OnAfterRenderAsync(bool firstRender)
+    protected override void OnAfterRender(bool firstRender)
     {
-        if (firstRender)
-        {
-            await JSRuntime.InvokeAsync<string>("sliderFunctions.startSlider", null);
-            firstRender = false;
-        }
+       JSRuntime.InvokeAsync<string>("sliderFunctions.startSlider", null);
     }
 
 }
