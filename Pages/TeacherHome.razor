@@ -200,7 +200,7 @@
     string res;
     protected override async Task OnInitializedAsync()
     {
-        res = await Http.GetStringAsync(baseUrl.allReports + ad.username);
+        res = await Http.GetStringAsync(baseUrl.allReports + ad.username.ToLower());
         //res = await Http.GetStringAsync(baseUrl.myGit);
         //Console.WriteLine(res);
         blob = JsonConvert.DeserializeObject<Blob[]>(res);
