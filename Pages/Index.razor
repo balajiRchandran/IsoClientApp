@@ -31,6 +31,8 @@
                     MyNavigationManager.NavigateTo("/Admin/" + ad.username);
                 else if (userRole.Contains("Student"))
                     MyNavigationManager.NavigateTo("/Student/" + ad.username);
+                else if (userRole.Contains("Teacher"))
+                    MyNavigationManager.NavigateTo("/Teacher/" + ad.username);
                 else
                     MyNavigationManager.NavigateTo("/Error/");
             }
